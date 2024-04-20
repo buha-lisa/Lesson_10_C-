@@ -4,26 +4,54 @@
     {
         static void Main()
         {
-            var max = new Task1_3().MaxValue<int>(3, 6, 7);
-            Console.WriteLine($"Max: {max}");
-
-            var min = new Task1_3().MinValue<int>(3, 6, 7);
-            Console.WriteLine($"Min: {min}");
-
-            var stack = new Stack<int>(5);
-            stack.Push(1);
-            stack.Push(4);
-            stack.Push(5);
-            stack.Push(2);
-            stack.Show();
-
-
-            stack.Pop();
-            stack.Show();
-
-            Console.WriteLine($"Peek: {stack.Peek()}");
-            Console.WriteLine($"Count: {stack.Count()}");
-
+            while (true)
+            {
+                Console.Write("Choose number of task(1-5): ");
+                int.TryParse(Console.ReadLine(), out int task);
+                switch (task)
+                {
+                    case 1:
+                        var max = new Task1_3().MaxValue<int>(3, 6, 7);
+                        Console.WriteLine($"Max: {max}");
+                        break;
+                    case 2:
+                        var min = new Task1_3().MinValue<int>(3, 6, 7);
+                        Console.WriteLine($"Min: {min}");
+                        break;
+                    case 3:
+                        int[] ints = { 4, 5, 6 };
+                        var sum = new Task1_3().SumArray<int>(ints);
+                        Console.WriteLine($"Sum: {sum}");
+                        break;
+                    case 4:
+                        var stack = new Stack<int>(5);
+                        stack.Push(1);
+                        stack.Push(4);
+                        stack.Push(5);
+                        stack.Push(2);
+                        stack.Push(7);
+                        Console.WriteLine($"Peek: {stack.Peek()}");
+                        while (stack.Count() > 0)
+                        {
+                            Console.WriteLine(stack.Pop());
+                        }
+                        break;
+                    case 5:
+                        var queue = new Queue<int>(5);
+                        queue.Enqueue(1);
+                        queue.Enqueue(4);
+                        queue.Enqueue(5);
+                        queue.Enqueue(2);
+                        queue.Enqueue(7);
+                        Console.WriteLine($"Peek: {queue.Peek()}");
+                        while (queue.Count() > 0)
+                        {
+                            Console.WriteLine(queue.Dequeue());
+                        }
+                        break;
+                }
+                if (task == 0) break;
+            }
             //int x = 5; int y = 10;
             //Console.WriteLine($"X: {x} - Y: {y}");
 

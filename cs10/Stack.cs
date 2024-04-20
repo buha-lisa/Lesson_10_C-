@@ -3,73 +3,58 @@ namespace cs10
 {
     internal class Stack<T>
     {
-        private int _top;
-        private int _size;
+        private int _size; 
         private T[] _data;
-        private void resizeAndCopy()
+        private int _stackMaxSize; 
+        public Stack(int stackMaxSize)
         {
-            T[] valueArr = new T[_size];
-            for (int i = 0; i < _top; ++i)
-            {
-                valueArr[i] = _data[i];
-            }
-            Array.Clear(_data, 0, _size);
-            _data = valueArr;
+            _data = new T[stackMaxSize];
+            _size = 0;
+            _stackMaxSize = stackMaxSize;
         }
-        public Stack(int size)
-        {
-            _size = size;
-            _data = new T[size];
-            _top = -1;
-        }
-
-        public void Push(T item) 
-        {
-            if (_top == _size-1) 
-            {
-                Console.WriteLine("Stack is full!");
-            }
-            else
-            {
-                _data[_top++] = item;
-            }
-        }
-        public T Pop() 
-        {   
-            if ( _top == -1)
-            {
-                Console.WriteLine("Stack is empty!");
-            }
-            else
-            {
-                _data[_top] = _data[_top--];
-                if (_top <= _size / 3)
-                {
-                    _size = _size * 2 / 3;
-                    resizeAndCopy();
-                }
-            }
-            return _data[_top];
-        }
-        public T Peek()
-        {
-            if (_top == -1)
-            {
-                Console.WriteLine("Stack is empty!");
-            }
-            return _data[_top];
-        }
-
         public int Count()
         {
             return _size;
         }
 
-        public void Show()
+        public void Push(T item)
         {
-            foreach (Object obj in _data)
-                Console.Write("    {0}", obj);
-            Console.WriteLine();
+            if (_size == _stackMaxSize)
+            {
+                RebuildData();
+            }
+
+            _data[_size] = item;
+            _size++;
+        }
+
+        public T Peek()
+        {
+            if (Count() == 0)
+            {
+                Console.WriteLine("Stack is empty!");
+            }
+
+            return _data[_size - 1];
+        }
+
+        public T Pop()
+        {
+            var item = Peek();
+            _size--;
+            return item;
+        }
+
+        private void RebuildData()
+        {
+            var newData = new T[_stackMaxSize];
+            for (var i = 1; i < _data.Length; i++)
+            {
+                newData[i - 1] = _data[i];
+            }
+
+            _data = newData;
+            _size = _stackMaxSize - 1;
         }
     }
 }
